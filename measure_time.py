@@ -6,6 +6,9 @@ from matplotlib import pyplot as plt
 from tqdm import tqdm
 from statistics import mean
 import numpy as np
+from insertion_sort import insertion_sort as ins
+from selection_sort import selection_sort as sel
+from quick_sort import quick_sort as qui
 
 
 def measure_search_time(sort_function, sz, repeats):
@@ -26,10 +29,13 @@ def main():
     algorithms = {
         'sorted': sorted,
         'np_quicksort': lambda a: np.sort(a, kind='quicksort'),
-        'np_mergesort': lambda a: np.sort(a, kind='mergesort')
+        'np_mergesort': lambda a: np.sort(a, kind='mergesort'),
+        'ins_sort': lambda a: ins(a),
+        'sel_sort': lambda a: sel(a),
+        'quick_sort': lambda a: qui(a)
     }
 
-    sizes = list(range(1, 100, 5)) + list(range(200, 5000, 50))
+    sizes = list(range(1, 100, 5)) + list(range(200, 3000, 500))
     avg_time = {alg: [] for alg in algorithms}
     for sz in tqdm(sizes):
         for alg_name, f in algorithms.items():
